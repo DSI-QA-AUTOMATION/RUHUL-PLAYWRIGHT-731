@@ -79,16 +79,3 @@ demoqa-playwright-assignment/
 </pre>
 
 
-
-## 📝 Evaluation Rubric (Optional)
-
-The assignment will be evaluated based on the following criteria:
-
-| Area            | Marks |
-|-----------------|-------|
-| Test coverage   | 30    |
-| Code quality    | 25    |
-| Assertions      | 20    |
-| POM usage       | 15    |
-| Reporting & CI  | 10    |
-| **Total**       | **100** |
