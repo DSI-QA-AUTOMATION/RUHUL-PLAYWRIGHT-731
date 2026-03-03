@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { RadioButtonPage } from '../pages/RadioButtonPage';
+import { RadioButtonPage } from '../../pages/RadioButtonPage';
 
 test.describe('Radio Button Tests', () => {
   let radioButtonPage: RadioButtonPage;

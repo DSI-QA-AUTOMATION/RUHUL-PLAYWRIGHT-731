@@ -14,7 +14,7 @@ export const waitHelpers = {
     await page.waitForFunction((sel) => {
       const el = document.querySelector(sel) as HTMLElement;
       return el && !el.hasAttribute('disabled');
-    }, selector, { timeout });
+    }, selector);
   },
 
   async waitForUrl(page: Page, urlPattern: string | RegExp, timeout: number = 10000): Promise<void> {
@@ -23,12 +23,12 @@ export const waitHelpers = {
 
   async waitForText(page: Page, selector: string, text: string, timeout: number = 10000): Promise<void> {
     await page.waitForFunction(
-      (sel, txt) => {
+      (args) => {
+        const [sel, txt] = args;
         const el = document.querySelector(sel);
         return el && el.textContent?.includes(txt);
       },
-      selector,
-      text,
+      [selector, text],
       { timeout }
     );
   },

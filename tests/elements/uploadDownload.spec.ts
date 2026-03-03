@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { UploadDownloadPage } from '../pages/UploadDownloadPage';
+import { UploadDownloadPage } from '../../pages/UploadDownloadPage';
 import * as path from 'path';
 
 test.describe('Upload/Download Tests', () => {

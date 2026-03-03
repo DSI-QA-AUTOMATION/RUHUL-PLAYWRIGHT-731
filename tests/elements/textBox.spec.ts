@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { TextBoxPage } from '../pages/TextBoxPage';
+import { TextBoxPage } from '../../pages/TextBoxPage';
 
 test.describe('Text Box Tests', () => {
   let textBoxPage: TextBoxPage;

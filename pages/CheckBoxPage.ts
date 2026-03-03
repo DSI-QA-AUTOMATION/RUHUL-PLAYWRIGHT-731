@@ -43,7 +43,7 @@ export class CheckBoxPage extends BasePage {
     return await element.isChecked();
   }
 
-  async getSelectedItemsText(): Promise<string> {
+  async getSelectedItemsText(): Promise<string[]> {
     const resultElement = this.page.locator('.text-success');
     return await resultElement.allTextContents();
   }

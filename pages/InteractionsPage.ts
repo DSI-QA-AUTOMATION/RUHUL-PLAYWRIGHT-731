@@ -30,7 +30,7 @@ export class InteractionsPage extends BasePage {
   }
 
   async getDroppableBackgroundColor(): Promise<string> {
-    return await this.page.eval(this.droppableElement, el => {
+    return await this.page.$eval(this.droppableElement, el => {
       const style = window.getComputedStyle(el);
       return style.backgroundColor;
     });

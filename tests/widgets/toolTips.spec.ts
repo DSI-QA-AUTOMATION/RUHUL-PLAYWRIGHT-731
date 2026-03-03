@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { WidgetsPage } from '../pages/WidgetsPage';
+import { WidgetsPage } from '../../pages/WidgetsPage';
 
 test.describe('Tool Tips Tests', () => {
   let widgetsPage: WidgetsPage;

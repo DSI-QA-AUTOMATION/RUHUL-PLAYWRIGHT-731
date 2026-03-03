@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { WebTablesPage } from '../pages/WebTablesPage';
+import { WebTablesPage } from '../../pages/WebTablesPage';
 
 test.describe('Web Tables Tests', () => {
   let webTablesPage: WebTablesPage;

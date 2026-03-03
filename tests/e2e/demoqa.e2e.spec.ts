@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
-import { HomePage } from '../pages/HomePage';
-import { TextBoxPage } from '../pages/TextBoxPage';
-import { PracticeFormPage } from '../pages/PracticeFormPage';
-import { WidgetsPage } from '../pages/WidgetsPage';
-import { InteractionsPage } from '../pages/InteractionsPage';
+import { HomePage } from '../../pages/HomePage';
+import { TextBoxPage } from '../../pages/TextBoxPage';
+import { PracticeFormPage } from '../../pages/PracticeFormPage';
+import { WidgetsPage } from '../../pages/WidgetsPage';
+import { InteractionsPage } from '../../pages/InteractionsPage';
 
 test.describe('End-to-End Tests', () => {
   test('Complete user journey - Navigate through forms, widgets and interactions', async ({ page }) => {

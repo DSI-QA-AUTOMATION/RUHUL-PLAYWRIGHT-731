@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { InteractionsPage } from '../pages/InteractionsPage';
+import { InteractionsPage } from '../../pages/InteractionsPage';
 
 test.describe('Drag and Drop Tests', () => {
   let interactionsPage: InteractionsPage;
