@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class BasePage {
   protected page: Page;
@@ -12,11 +12,11 @@ export class BasePage {
     await this.page.goto(`${baseUrl}${path}`);
   }
 
-  async clickElement(selector: string): Promise<void> {
+  async click(selector: string): Promise<void> {
     await this.page.click(selector);
   }
 
-  async fillInput(selector: string, value: string): Promise<void> {
+  async fill(selector: string, value: string): Promise<void> {
     await this.page.fill(selector, value);
   }
 
@@ -32,12 +32,5 @@ export class BasePage {
       return false;
     }
   }
-
-  async waitForElement(selector: string): Promise<void> {
-    await this.page.waitForSelector(selector);
-  }
-
-  async getElement(selector: string): Promise<Locator> {
-    return this.page.locator(selector);
-  }
 }
+
