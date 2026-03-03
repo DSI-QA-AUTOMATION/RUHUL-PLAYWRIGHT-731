@@ -6,7 +6,7 @@ export class WidgetsPage extends BasePage {
   private dateSelectMonth = '.react-datepicker__month-select';
   private dateSelectYear = '.react-datepicker__year-select';
   private dateSelectDay = '.react-datepicker__day';
-  private toolTipButton = 'button[title="Hover me"]';
+  private toolTipButton = 'button:has-text("Hover me")';  // Find button by text content
   private toolTipContent = '.tooltip-inner';
   private toolTipElement = '.tooltip';
 
@@ -30,11 +30,12 @@ export class WidgetsPage extends BasePage {
   }
 
   async getSelectedDate(): Promise<string> {
-    return await this.getText(this.dateInput);
+    // For input fields, use inputValue() instead of getText()
+    return await this.page.inputValue(this.dateInput);
   }
 
   async hoverOverToolTip(): Promise<void> {
-    await this.page.hover(this.toolTipButton);
+    await this.page.locator(this.toolTipButton).first().hover();
   }
 
   async getToolTipText(): Promise<string> {

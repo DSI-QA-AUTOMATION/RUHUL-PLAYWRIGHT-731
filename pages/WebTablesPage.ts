@@ -45,13 +45,17 @@ export class WebTablesPage extends BasePage {
   }
 
   async getTableRows(): Promise<string[]> {
-    const rows = this.page.locator('.rt-tr-group');
-    const rowCount = await rows.count();
-    const rowTexts: string[] = [];
-    for (let i = 0; i < rowCount; i++) {
-      rowTexts.push(await rows.nth(i).textContent() || '');
+    // Get all visible table content by looking for cells in the ReactTable
+    try {
+      await this.page.waitForSelector('.ReactTable', { timeout: 5000 });
+      // Get all cells or rows from the table
+      const cells = await this.page.locator('.ReactTable >> [role="row"]').allTextContents();
+      return cells.filter(text => text.trim()).map(text => text.trim());
+    } catch (e) {
+      // Fallback: try to get all text from ReactTable
+      const allText = await this.page.locator('.ReactTable').textContent();
+      return allText ? [allText] : [];
     }
-    return rowTexts;
   }
 
   async deleteFirstRecord(): Promise<void> {

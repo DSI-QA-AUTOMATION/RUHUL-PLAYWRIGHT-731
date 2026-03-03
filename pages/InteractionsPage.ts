@@ -21,12 +21,12 @@ export class InteractionsPage extends BasePage {
 
   async dragElementToTarget(): Promise<void> {
     const draggable = this.page.locator(this.draggableElement);
-    const droppable = this.page.locator(this.droppableElement);
+    const droppable = this.page.locator(this.droppableElement).first(); // Use .first() to resolve strict mode
     await draggable.dragTo(droppable);
   }
 
   async getDroppableText(): Promise<string> {
-    return await this.getText(this.droppableElement);
+    return await this.getText(this.droppableElement + ':first-of-type');
   }
 
   async getDroppableBackgroundColor(): Promise<string> {

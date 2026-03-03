@@ -11,7 +11,7 @@ export class PracticeFormPage extends BasePage {
   private mobileInput = '#userNumber';
   private dateOfBirthInput = '#dateOfBirthInput';
   private subjectsInput = '#subjectsInput';
-  private hobbiesCheckboxes = '.custom-checkbox';
+  private hobbiesCheckboxes = 'label[for^="hobbies"]';  // Match any label starting with "hobbies" id
   private currentAddressInput = '#currentAddress';
   private stateSelect = '#state';
   private citySelect = '#city';

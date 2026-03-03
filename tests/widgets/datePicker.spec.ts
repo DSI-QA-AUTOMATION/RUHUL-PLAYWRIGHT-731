@@ -1,33 +1,51 @@
 import { test, expect } from '@playwright/test';
-import { WidgetsPage } from '../../pages/WidgetsPage';
 
 test.describe('Date Picker Tests', () => {
-  let widgetsPage: WidgetsPage;
-
-  test.beforeEach(async ({ page }) => {
-    widgetsPage = new WidgetsPage(page);
-    await widgetsPage.navigateToDatePicker();
-  });
-
   test('Select a valid date', async ({ page }) => {
-    const widgetsPage = new WidgetsPage(page);
-    await widgetsPage.navigateToDatePicker();
-
-    await widgetsPage.selectDate('0', '2025', '15');
-
-    const selectedDate = await widgetsPage.getSelectedDate();
-    expect(selectedDate).toContain('15');
-    expect(selectedDate).toContain('2025');
+    await page.goto('https://demoqa.com/date-picker');
+    
+    // Click the date input to open calendar
+    await page.click('#datePickerMonthYearInput');
+    
+    // Wait for calendar
+    await page.waitForSelector('.react-datepicker__month-select');
+    
+    // Select month (January = 0)
+    await page.selectOption('.react-datepicker__month-select', '0');
+    
+    // Select year
+    await page.selectOption('.react-datepicker__year-select', '2025');
+    
+    // Select day
+    await page.click('.react-datepicker__day--015');
+    
+    // Verify date was selected
+    const value = await page.inputValue('#datePickerMonthYearInput');
+    expect(value).toContain('15');
+    expect(value).toContain('2025');
   });
 
   test('Select different month and year', async ({ page }) => {
-    const widgetsPage = new WidgetsPage(page);
-    await widgetsPage.navigateToDatePicker();
-
-    await widgetsPage.selectDate('5', '2026', '20');
-
-    const selectedDate = await widgetsPage.getSelectedDate();
-    expect(selectedDate).toContain('20');
-    expect(selectedDate).toContain('2026');
+    await page.goto('https://demoqa.com/date-picker');
+    
+    // Click the date input to open calendar
+    await page.click('#datePickerMonthYearInput');
+    
+    // Wait for calendar
+    await page.waitForSelector('.react-datepicker__month-select');
+    
+    // Select June (month = 5)
+    await page.selectOption('.react-datepicker__month-select', '5');
+    
+    // Select year 2026
+    await page.selectOption('.react-datepicker__year-select', '2026');
+    
+    // Select day 20
+    await page.click('.react-datepicker__day--020');
+    
+    // Verify date was selected
+    const value = await page.inputValue('#datePickerMonthYearInput');
+    expect(value).toContain('20');
+    expect(value).toContain('2026');
   });
 });
