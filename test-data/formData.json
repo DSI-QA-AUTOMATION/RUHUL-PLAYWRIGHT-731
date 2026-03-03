@@ -1,0 +1,42 @@
+{
+  "practiceForm": {
+    "validUser": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "mobile": "1234567890",
+      "gender": "Male",
+      "dateOfBirth": "15 May 1990",
+      "subjects": ["Computer Science", "Mathematics"],
+      "hobbies": ["Reading", "Sports"],
+      "currentAddress": "123 Main Street, New York",
+      "state": "NCR",
+      "city": "Delhi"
+    },
+    "minimalUser": {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "mobile": "9876543210",
+      "gender": "Female"
+    }
+  },
+  "webTables": {
+    "newUser": {
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "test.user@example.com",
+      "age": "25",
+      "salary": "40000",
+      "department": "QA"
+    }
+  },
+  "textBox": {
+    "validData": {
+      "fullName": "John Doe",
+      "email": "john.doe@example.com",
+      "currentAddress": "123 Main Street",
+      "permanentAddress": "456 Oak Avenue"
+    }
+  }
+}
