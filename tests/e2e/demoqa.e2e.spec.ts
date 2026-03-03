@@ -13,36 +13,44 @@ test.describe('End-to-End Tests', () => {
     const widgetsPage = new WidgetsPage(page);
     const interactionsPage = new InteractionsPage(page);
 
+    // Home page - verify categories
     await homePage.navigate();
-    await expect(homePage.isElementsCardVisible()).toBeTruthy();
-    await expect(homePage.isFormsCardVisible()).toBeTruthy();
-    await expect(homePage.isWidgetsCardVisible()).toBeTruthy();
-    await expect(homePage.isInteractionsCardVisible()).toBeTruthy();
+    await expect(page.locator('h5:has-text("Elements")')).toBeVisible();
+    await expect(page.locator('h5:has-text("Forms")')).toBeVisible();
+    await expect(page.locator('h5:has-text("Widgets")')).toBeVisible();
+    await expect(page.locator('h5:has-text("Interactions")')).toBeVisible();
 
+    // Text Box
     await textBoxPage.navigate();
     await textBoxPage.fillForm('John Doe', 'john.doe@example.com', '123 Main Street', '456 Oak Ave');
     await textBoxPage.submit();
-    await expect(await textBoxPage.isOutputVisible()).toBeTruthy();
+    await expect(page.locator('#output')).toBeVisible();
 
+    // Practice Form
     await practiceFormPage.navigate();
     await practiceFormPage.fillForm('Jane', 'Smith', 'jane.smith@example.com', '1234567890');
     await practiceFormPage.selectGender('Female');
     await practiceFormPage.submit();
-    await expect(await practiceFormPage.isModalVisible()).toBeTruthy();
+    await expect(page.locator('.modal-dialog')).toBeVisible();
     await practiceFormPage.closeModal();
 
+    // Date Picker
     await widgetsPage.navigateToDatePicker();
-    await widgetsPage.selectDate('0', '2025', '15');
-    const selectedDate = await widgetsPage.getSelectedDate();
-    expect(selectedDate).toContain('2025');
+    await page.locator('#datePickerMonthYearInput').click();
+    await page.locator('.react-datepicker__month-select').selectOption('0');
+    await page.locator('.react-datepicker__year-select').selectOption('2025');
+    await page.locator('.react-datepicker__day--015').click();
+    const dateValue = await page.locator('#datePickerMonthYearInput').inputValue();
+    expect(dateValue).toContain('2025');
 
+    // Tool Tips
     await widgetsPage.navigateToToolTips();
-    await widgetsPage.hoverOverToolTip();
-    await expect(await widgetsPage.isToolTipVisible()).toBeTruthy();
+    await page.locator('button[title="Hover me"]').hover();
+    await expect(page.locator('.tooltip')).toBeVisible();
 
+    // Drag and Drop
     await interactionsPage.navigateToDragDrop();
-    await interactionsPage.dragElementToTarget();
-    const droppableText = await interactionsPage.getDroppableText();
-    expect(droppableText).toContain('Dropped');
+    await page.locator('#draggable').dragTo(page.locator('#droppable'));
+    await expect(page.locator('#droppable')).toContainText('Dropped');
   });
 });

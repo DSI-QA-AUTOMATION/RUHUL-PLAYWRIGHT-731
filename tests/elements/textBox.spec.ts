@@ -2,13 +2,6 @@ import { test, expect } from '@playwright/test';
 import { TextBoxPage } from '../../pages/TextBoxPage';
 
 test.describe('Text Box Tests', () => {
-  let textBoxPage: TextBoxPage;
-
-  test.beforeEach(async ({ page }) => {
-    textBoxPage = new TextBoxPage(page);
-    await textBoxPage.navigate();
-  });
-
   test('Submit text box with valid data', async ({ page }) => {
     const textBoxPage = new TextBoxPage(page);
     await textBoxPage.navigate();
@@ -29,10 +22,12 @@ test.describe('Text Box Tests', () => {
 
     await textBoxPage.submit();
 
-    await expect(textBoxPage.isOutputVisible()).toBeTruthy();
-    await expect(await textBoxPage.getOutputName()).toContain(testData.fullName);
-    await expect(await textBoxPage.getOutputEmail()).toContain(testData.email);
-    await expect(await textBoxPage.getOutputCurrentAddress()).toContain(testData.currentAddress);
-    await expect(await textBoxPage.getOutputPermanentAddress()).toContain(testData.permanentAddress);
+    await expect(page.locator('#output')).toBeVisible();
+    
+    const outputText = await page.locator('#output').textContent();
+    expect(outputText).toContain(testData.fullName);
+    expect(outputText).toContain(testData.email);
+    expect(outputText).toContain(testData.currentAddress);
+    expect(outputText).toContain(testData.permanentAddress);
   });
 });

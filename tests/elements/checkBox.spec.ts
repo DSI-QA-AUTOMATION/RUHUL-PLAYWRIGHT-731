@@ -1,29 +1,21 @@
 import { test, expect } from '@playwright/test';
-import { CheckBoxPage } from '../../pages/CheckBoxPage';
 
 test.describe('Check Box Tests', () => {
-  let checkBoxPage: CheckBoxPage;
-
-  test.beforeEach(async ({ page }) => {
-    checkBoxPage = new CheckBoxPage(page);
-    await checkBoxPage.navigate();
-  });
-
   test('Select multiple checkboxes', async ({ page }) => {
-    const checkBoxPage = new CheckBoxPage(page);
-    await checkBoxPage.navigate();
-
-    await checkBoxPage.expandAll();
-
-    await checkBoxPage.checkHome();
-    await checkBoxPage.checkDesktop();
-    await checkBoxPage.checkDocuments();
-    await checkBoxPage.checkDownloads();
-
-    const isHomeChecked = await checkBoxPage.isChecked('label:has-text("Home") span[class="rct-checkbox"]');
-    const isDesktopChecked = await checkBoxPage.isChecked('label:has-text("Desktop") span[class="rct-checkbox"]');
-
-    expect(isHomeChecked).toBeTruthy();
-    expect(isDesktopChecked).toBeTruthy();
+    await page.goto('https://demoqa.com/checkbox');
+    
+    // Expand all
+    await page.click('button[title="Expand all"]');
+    
+    // Check some options
+    await page.click('label:has-text("Home")');
+    await page.click('label:has-text("Desktop")');
+    
+    // Verify they are checked
+    const homeCheckbox = page.locator('label:has-text("Home") .rct-checkbox');
+    const desktopCheckbox = page.locator('label:has-text("Desktop") .rct-checkbox');
+    
+    await expect(homeCheckbox).toHaveClass(/rct-icon-check/);
+    await expect(desktopCheckbox).toHaveClass(/rct-icon-check/);
   });
 });

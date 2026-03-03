@@ -22,7 +22,7 @@ export class ButtonsPage extends BasePage {
   }
 
   async rightClick(): Promise<void> {
-    await this.page.click(this.rightClickButton, { button: 'right' });
+    await this.page.locator(this.rightClickButton).click({ button: 'right' });
   }
 
   async clickMe(): Promise<void> {

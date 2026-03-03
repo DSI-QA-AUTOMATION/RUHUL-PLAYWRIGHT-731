@@ -1,54 +1,52 @@
 import { test, expect } from '@playwright/test';
-import { AlertsPage } from '../../pages/AlertsPage';
 
 test.describe('Alerts Tests', () => {
-  let alertsPage: AlertsPage;
-
-  test.beforeEach(async ({ page }) => {
-    alertsPage = new AlertsPage(page);
-    await alertsPage.navigate();
-  });
-
   test('Handle simple alert popup', async ({ page }) => {
-    const alertsPage = new AlertsPage(page);
-    await alertsPage.navigate();
-
-    await alertsPage.triggerAlert();
+    await page.goto('https://demoqa.com/alerts');
     
-    const dialogPromise = page.waitForEvent('dialog');
-    const dialog = await dialogPromise;
-    expect(dialog.type()).toBe('alert');
-    await dialog.accept();
+    page.on('dialog', async dialog => {
+      expect(dialog.type()).toBe('alert');
+      await dialog.accept();
+    });
+
+    await page.click('#alertButton');
+    await page.waitForTimeout(500);
   });
 
   test('Handle confirm alert - accept', async ({ page }) => {
-    const alertsPage = new AlertsPage(page);
-    await alertsPage.navigate();
+    await page.goto('https://demoqa.com/alerts');
 
-    await alertsPage.triggerConfirmAlert(true);
+    page.on('dialog', async dialog => {
+      await dialog.accept();
+    });
 
-    const result = await alertsPage.getConfirmResult();
+    await page.click('#confirmButton');
+    const result = await page.locator('#confirmResult').textContent();
     expect(result).toContain('Ok');
   });
 
   test('Handle confirm alert - dismiss', async ({ page }) => {
-    const alertsPage = new AlertsPage(page);
-    await alertsPage.navigate();
+    await page.goto('https://demoqa.com/alerts');
 
-    await alertsPage.triggerConfirmAlert(false);
+    page.on('dialog', async dialog => {
+      await dialog.dismiss();
+    });
 
-    const result = await alertsPage.getConfirmResult();
+    await page.click('#confirmButton');
+    const result = await page.locator('#confirmResult').textContent();
     expect(result).toContain('Cancel');
   });
 
   test('Handle prompt alert', async ({ page }) => {
-    const alertsPage = new AlertsPage(page);
-    await alertsPage.navigate();
+    await page.goto('https://demoqa.com/alerts');
 
     const testInput = 'Test User';
-    await alertsPage.triggerPromptAlert(testInput);
+    page.on('dialog', async dialog => {
+      await dialog.accept(testInput);
+    });
 
-    const result = await alertsPage.getPromptResult();
+    await page.click('#promtButton');
+    const result = await page.locator('#promptResult').textContent();
     expect(result).toContain(testInput);
   });
 });

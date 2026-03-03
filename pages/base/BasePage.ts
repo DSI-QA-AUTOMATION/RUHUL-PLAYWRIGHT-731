@@ -21,11 +21,16 @@ export class BasePage {
   }
 
   async getText(selector: string): Promise<string> {
+    await this.page.waitForSelector(selector, { state: 'visible' });
     return await this.page.textContent(selector) || '';
   }
 
   async isVisible(selector: string): Promise<boolean> {
-    return await this.page.isVisible(selector);
+    try {
+      return await this.page.isVisible(selector);
+    } catch {
+      return false;
+    }
   }
 
   async waitForElement(selector: string): Promise<void> {
